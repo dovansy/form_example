@@ -1,1 +1,10 @@
-
+.menu {
+  span {
+    padding: 0.5em;
+    cursor: pointer;
+    outline-style: none;
+  }
+  span:active {
+    color: red;
+  }
+}
