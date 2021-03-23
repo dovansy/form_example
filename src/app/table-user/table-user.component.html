@@ -10,17 +10,23 @@
         <th scope="col">Address</th>
         <th scope="col">Age</th>
         <th scope="col">Create Date</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of dataSource; index as i">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>
+      <tr *ngFor="let item of dataSource; index as i" style="cursor: pointer">
+        <th scope="row" (click)="changeUser(item.id)">{{ i + 1 }}</th>
+        <td (click)="changeUser(item.id)">
           {{ item.name || "--" }}
         </td>
-        <td>{{ item?.address || "--" }}</td>
-        <td>{{ item?.age || "--" | number }}</td>
-        <td>{{ item?.createdAt || "--" | date }}</td>
+        <td (click)="changeUser(item.id)">{{ item?.address || "--" }}</td>
+        <td (click)="changeUser(item.id)">{{ item?.age || "--" | number }}</td>
+        <td (click)="changeUser(item.id)">
+          {{ item?.createdAt || "--" | date }}
+        </td>
+        <td (click)="deleteUser(item.id)" class="delete">
+          <span>Delete</span>
+        </td>
       </tr>
       <tr *ngIf="dataSource?.length === 0">
         <td colSpan="8" style="text-align: center">Không có dữ liệu</td>

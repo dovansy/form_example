@@ -1,6 +1,18 @@
 table {
   width: 100%;
 }
+
 .table-user {
   margin-top: 60px;
+}
+
+.table-hover {
+  tr:hover {
+    background-color: #5788b9;
+    color: white;
+  }
+  .delete:hover {
+    color: red;
+    font-weight: bold;
+  }
 }
