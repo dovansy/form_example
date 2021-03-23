@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { USER } from '../mock-user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-table-user',
@@ -8,8 +8,13 @@ import { USER } from '../mock-user';
 })
 export class TableUserComponent {
   displayedColumns: string[] = ['position', 'name', 'address', 'age'];
-  dataSource = USER;
-  constructor() {}
+  dataSource: any;
+  constructor(private userService: UserService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService.getAll().subscribe((res) => {
+      console.log(res);
+      this.dataSource = res;
+    });
+  }
 }

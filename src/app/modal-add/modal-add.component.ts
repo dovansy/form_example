@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { USER } from '../mock-user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-modal-add',
@@ -11,7 +11,11 @@ import { USER } from '../mock-user';
 export class ModalAddComponent implements OnInit {
   addForm: any = FormGroup;
   closeResult: any = '';
-  constructor(private modalService: NgbModal, public fb: FormBuilder) {
+  constructor(
+    private modalService: NgbModal,
+    public fb: FormBuilder,
+    private userService: UserService
+  ) {
     this.createForm();
   }
 
@@ -19,7 +23,7 @@ export class ModalAddComponent implements OnInit {
     this.addForm = this.fb.group({
       name: this.fb.control('', [
         Validators.required,
-        Validators.maxLength(10),
+        Validators.maxLength(50),
       ]),
       address: this.fb.control('', [Validators.required]),
       age: this.fb.control('', [Validators.required]),
@@ -53,7 +57,7 @@ export class ModalAddComponent implements OnInit {
 
   onSubmit = async () => {
     let value = this.addForm.value;
-    await USER.push(value);
+    this.userService.createUser(value).subscribe((res) => console.log(res));
     this.createForm();
   };
 }
