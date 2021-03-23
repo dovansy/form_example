@@ -28,7 +28,9 @@ export class TableUserComponent {
   }
 
   deleteUser(id: number) {
-    this.userService.deleteUser(id).subscribe((res) => console.log('res', res));
-    location.reload();
+    this.userService.deleteUser(id).subscribe((res) => {
+      console.log('res', res);
+      location.reload();
+    });
   }
 }

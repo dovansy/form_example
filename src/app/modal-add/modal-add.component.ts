@@ -60,8 +60,9 @@ export class ModalAddComponent implements OnInit {
     let value = this.addForm.value;
     this.userService.createUser(value).subscribe((res) => {
       console.log(res);
+      // location.reload();
     });
-    location.reload();
+
     this.createForm();
   };
 }
