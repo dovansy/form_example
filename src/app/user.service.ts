@@ -1,7 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { User } from './user';
+import { Injectable } from '@angular/core';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -16,15 +14,10 @@ export class UserService {
   constructor(private httpClient: HttpClient) {}
 
   getAll() {
-    return this.httpClient.get(
-      'https://60595bcab11aba001745bf30.mockapi.io/User'
-    );
+    return this.httpClient.get(apiUrl);
   }
 
   createUser(data: any) {
-    return this.httpClient.post(
-      'https://60595bcab11aba001745bf30.mockapi.io/User',
-      data
-    );
+    return this.httpClient.post(apiUrl, data);
   }
 }

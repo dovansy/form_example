@@ -13,7 +13,6 @@ export class TableUserComponent {
 
   ngOnInit(): void {
     this.userService.getAll().subscribe((res) => {
-      console.log(res);
       this.dataSource = res;
     });
   }

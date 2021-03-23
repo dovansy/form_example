@@ -9,16 +9,21 @@
         <th scope="col">Name</th>
         <th scope="col">Address</th>
         <th scope="col">Age</th>
+        <th scope="col">Create Date</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of dataSource; index as i">
         <th scope="row">{{ i + 1 }}</th>
         <td>
-          {{ item.name }}
+          {{ item.name || "--" }}
         </td>
-        <td>{{ item.address }}</td>
-        <td>{{ item.age | number }}</td>
+        <td>{{ item?.address || "--" }}</td>
+        <td>{{ item?.age || "--" | number }}</td>
+        <td>{{ item?.createdAt || "--" | date }}</td>
+      </tr>
+      <tr *ngIf="dataSource?.length === 0">
+        <td colSpan="8" style="text-align: center">Không có dữ liệu</td>
       </tr>
     </tbody>
   </table>

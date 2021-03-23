@@ -27,6 +27,7 @@ export class ModalAddComponent implements OnInit {
       ]),
       address: this.fb.control('', [Validators.required]),
       age: this.fb.control('', [Validators.required]),
+      createdAt: this.fb.control(new Date()),
     });
   }
 
@@ -57,6 +58,7 @@ export class ModalAddComponent implements OnInit {
 
   onSubmit = async () => {
     let value = this.addForm.value;
+    console.log('1', new Date());
     this.userService.createUser(value).subscribe((res) => console.log(res));
     this.createForm();
   };
