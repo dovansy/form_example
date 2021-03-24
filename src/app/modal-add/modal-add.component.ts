@@ -60,6 +60,6 @@ export class ModalAddComponent {
       console.log(res);
       location.reload();
     });
-    this.createForm();
+    this.addForm.reset();
   }
 }
