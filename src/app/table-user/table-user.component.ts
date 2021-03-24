@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../user.service';
+
 @Component({
   selector: 'app-table-user',
   templateUrl: './table-user.component.html',
@@ -16,6 +19,7 @@ export class TableUserComponent {
   address: string = '';
   age: any;
   id: any;
+  loading: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -28,8 +32,10 @@ export class TableUserComponent {
   }
 
   getData() {
+    this.loading = true;
     this.userService.getAll().subscribe((res) => {
       this.dataSource = res;
+      this.loading = false;
     });
   }
 
@@ -79,10 +85,13 @@ export class TableUserComponent {
   }
 
   onSubmit() {
+    this.loading = true;
     let value = this.addForm.value;
+
     this.userService.updateUser(this.id, value).subscribe((res) => {
       console.log(res);
       location.reload();
+      this.loading = false;
     });
   }
 }
