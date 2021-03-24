@@ -15,13 +15,15 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of dataSource; index as i" style="cursor: pointer">
-        <th scope="row" (click)="changeUser(item.id)">{{ i + 1 }}</th>
-        <td (click)="changeUser(item.id)">
+        <th scope="row" (click)="openModal(content, item)">{{ i + 1 }}</th>
+        <td (click)="openModal(content, item)">
           {{ item.name || "--" }}
         </td>
-        <td (click)="changeUser(item.id)">{{ item?.address || "--" }}</td>
-        <td (click)="changeUser(item.id)">{{ item?.age || "--" | number }}</td>
-        <td (click)="changeUser(item.id)">
+        <td (click)="openModal(content, item)">{{ item?.address || "--" }}</td>
+        <td (click)="openModal(content, item)">
+          {{ item?.age || "--" | number }}
+        </td>
+        <td (click)="openModal(content, item)">
           {{ item?.createdAt || "--" | date }}
         </td>
         <td (click)="deleteUser(item.id)" class="delete">
@@ -34,3 +36,106 @@
     </tbody>
   </table>
 </div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Sửa người dùng</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+      <div class="form-group row">
+        <div class="col-sm-4">
+          <label>Tên người dùng <span class="validate-err">(*)</span></label>
+        </div>
+        <div class="input-group col">
+          <input
+            class="form-control"
+            placeholder="Vui lòng nhập tên người dùng"
+            formControlName="name"
+            #name
+          />
+          <div
+            *ngIf="
+              addForm.controls['name'].invalid &&
+              (addForm.controls['name'].dirty ||
+                addForm.controls['name'].touched)
+            "
+            class="validate-err col-12 mt-1"
+          >
+            <div *ngIf="addForm.controls['name'].errors.required">
+              Vui lòng nhập tên người dùng*
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-4">
+          <label>Địa chỉ <span class="validate-err">(*)</span></label>
+        </div>
+        <div class="input-group col">
+          <input
+            class="form-control"
+            placeholder="Vui lòng nhập địa chỉ"
+            formControlName="address"
+            #address
+            maxlength="200"
+          />
+          <div
+            *ngIf="
+              addForm.controls['address'].invalid &&
+              (addForm.controls['address'].dirty ||
+                addForm.controls['address'].touched)
+            "
+            class="validate-err col-12 mt-1"
+          >
+            <div *ngIf="addForm.controls['name'].errors.required">
+              Vui lòng nhập địa chỉ*
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-4">
+          <label>Tuổi <span class="validate-err">(*)</span> </label>
+        </div>
+        <div class="input-group col">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Vui lòng nhập tuổi"
+            formControlName="age"
+            #age
+          />
+          <div
+            *ngIf="
+              addForm.controls['age'].invalid &&
+              (addForm.controls['age'].dirty || addForm.controls['age'].touched)
+            "
+            class="validate-err col-12 mt-1"
+          >
+            <div *ngIf="addForm.controls['age'].errors.required">
+              Vui lòng nhập tuổi*
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer" style="justify-content: center">
+    <button
+      (click)="modal.close('click') + onSubmit()"
+      type="submit"
+      class="btn btn-danger"
+      [disabled]="!addForm.valid"
+    >
+      Lưu
+    </button>
+  </div>
+</ng-template>

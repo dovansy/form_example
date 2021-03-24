@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../user.service';
@@ -8,7 +8,7 @@ import { UserService } from '../user.service';
   templateUrl: './modal-add.component.html',
   styleUrls: ['./modal-add.component.scss'],
 })
-export class ModalAddComponent implements OnInit {
+export class ModalAddComponent {
   addForm: any = FormGroup;
   closeResult: any = '';
   constructor(
@@ -30,8 +30,6 @@ export class ModalAddComponent implements OnInit {
       createdAt: this.fb.control(new Date()),
     });
   }
-
-  ngOnInit(): void {}
 
   openModal(content: any) {
     this.modalService
@@ -56,13 +54,12 @@ export class ModalAddComponent implements OnInit {
     }
   }
 
-  onSubmit = async () => {
+  onSubmit() {
     let value = this.addForm.value;
     this.userService.createUser(value).subscribe((res) => {
       console.log(res);
       location.reload();
     });
-
     this.createForm();
-  };
+  }
 }

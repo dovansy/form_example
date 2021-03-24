@@ -21,8 +21,8 @@ export class UserService {
     return this.httpClient.post(apiUrl, data);
   }
 
-  updateUser(data: any) {
-    return this.httpClient.put(apiUrl, data);
+  updateUser(id: number, data: any) {
+    return this.httpClient.put(apiUrl + '/' + id, data);
   }
 
   getDetail(id: number) {
