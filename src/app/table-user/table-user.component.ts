@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
-import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../user.service';
 
@@ -17,7 +15,7 @@ export class TableUserComponent {
   closeResult: any = '';
   name: string = '';
   address: string = '';
-  age: any;
+  age: number = 0;
   id: any;
   loading: boolean = false;
 
@@ -87,7 +85,6 @@ export class TableUserComponent {
   onSubmit() {
     this.loading = true;
     let value = this.addForm.value;
-
     this.userService.updateUser(this.id, value).subscribe((res) => {
       console.log(res);
       location.reload();
